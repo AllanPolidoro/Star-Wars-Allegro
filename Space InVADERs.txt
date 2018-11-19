@@ -1,0 +1,59 @@
+Space InVADERs
+
+Desenvolvedores: Allan dos Santos Polidoro e Vicente Nejar de Almeida
+
+1.	COMENTÁRIOS GERAIS:
+	O desenvolvimento do jogo foi realizado utilizando a biblioteca Allegro 4.4.2, que se encontra dentro da pasta Space InVADERs.
+
+2. ABRIR O JOGO:
+	·Execute o aplicativo Space Invaders.exe, localizado na pasta Space InVADERs;
+	·No link a seguir há um gameplay do jogo, demonstrando alguns dos principais elementos deste: https://www.youtube.com/watch?v=FrtEQjhHTco
+
+3. MECÂNICA DO JOGO 
+
+3.1. MENU INICIAL:
+	O conceito geral do jogo é uma reinterpretação do clássico Space Invaders®, dentro da temática da franquia Star Wars®, da Lucasfilm. O resultado dessa proposta reflete-se já aqui no menu inicial, com um jogo de palavras no título (referenciando um personagem ícone da franquia), que contém a mesma fonte que a utilizada nos títulos da franquia, e na imagem de fundo, que contém naves presentes nos seus filmes. Além disso, assim como as demais partes do jogo, há uma música no formato MIDI que será executada durante a permanência do usuário na tela de menu inicial. Neste caso, a música a ser executada no menu inicial é o tema de Star Wars.
+	A seleção dos itens do menu foi desenvolvida a partir de um algoritmo de bounding box, que define a menor caixa que cerca a caixa de texto de cada opção. A seleção da opção ocorre quando houver a “colisão” da caixa do item com as coordenadas do cursor do mouse (o item nesse momento irá aumentar de tamanho, destacando a opção) e ocorrer o clique com o botão esquerdo do mouse.
+
+3.1.1. New Game:
+
+3.1.1.1. Nome do jogador:
+	·Um arquivo de áudio MIDI é executado, tocando a música tema da Força, conceito  fundamental da franquia;
+	·A imagem de fundo retrata o interior da Millenium Falcon, nave símbolo da franquia;
+	·É solicitado ao usuário a inserção de seu nome. Este nome será utilizado posteriormente para a formação dos arquivos de save, binário, e de highscore, em texto.
+3.1.1.2. Tutorial:
+	·Um arquivo de áudio MIDI é executado, tocando a música Duel of Fates, da franquia Star Wars;
+	·A tela está disposta em duas partes:
+		-Na primeira parte, superior, há uma demonstração dos movimentos da nave do jogador, junto a uma representação gráfica das teclas para executar os comandos demonstrados;
+		-Na segunda parte, inferior, são mostrados os elementos coletáveis do jogo, a saber: bônus positivo, representado pela imagem do droid R2-D2; bônus negativo, representado pelo capacete do personagem Darth Vader, que subtrai 30 pontos do jogador; vida, representado por uma Estrela da Morte estilizada em formato de coração; 
+
+3.1.1.3. Jogo:
+	·Um arquivo de áudio MIDI é executado, tocando, de forma aleatória, músicas como: [...], em 8-bit, de forma a remeter o jogador aos tempos áureos dos Arcade Games;
+	·Todos comandos de tiros (tanto da nave do jogador, quanto das naves inimigas, coletas de itens, explosões e danos sofridos, produzem um efeito sonoro (arquivo MIDI), aumentando a imersão do player;
+	·Os ataques da nave do jogador consistem em tiros duplos, formados a partir de uma lista encadeada, que proporciona uma maior fluidez ao jogo;
+	·As colisões dos tiros do jogador nas naves inimigas e vice-versa, são regidas por um algoritmo de Pixel Perfect Collision, que utiliza a mesma lógica do bounding box, mas despreza pixels nulos do Allegro (255, 0, 255), dando uma maior veracidade às colisões;
+	·As naves inimigas, ao levarem um dano, ou serem destruídas, são sobrepostas por uma sequência de sprites que transmite, através de uma animação, a ideia de explosão;
+	·Ao ser atingido, a nave do jogador irá apresentar brevemente uma leve transparência azulada, indicando ao jogador que a nave sofreu um dano;
+	·A quantidade de vida do jogador, representada por miniaturas da nave no canto superior direito, está limitada em, no máximo, 3, o que deixa o jogo mais desafiador;
+	·A cada 500 pontos, um elemento vida é chamado à tela de jogo, e irá seguir um movimento senoidal até o lado esquerdo da tela, devendo ser coletada pelo jogador (mediante a mecânica explicada anteriormente de Pixel Perfect Collision) para contabilizar a vida.
+	·Elementos bônus são gerados aleatoriamente e também seguem uma trajetória senoidal pela tela, devendo ser coletados da mesma forma que a vida para produzirem seus efeitos;
+	·Se o usuário clicar a tecla P do teclado o jogo é pausado e duas opções são oferecidas ao usuário:
+		-Salvar o jogo clicando S;
+		-Excluir o arquivo de save clicando R; 
+
+3.1.1.4. Game Over:
+	·Um arquivo de áudio MIDI é executado, tocando a música Marcha Imperial, da franquia Star Wars;
+	·Se o usuário atingiu uma pontuação suficiente para entrar no Highscore, uma mensagem é mostrada na tela do usuário;
+	·O usuário deve clicar B para retornar ao Menu Inicial;
+
+3.1.2. Load Game:
+	·O usuário deve fornecer seu nome para que o arquivo de save deste seja encontrado e o seu jogo salvo possa ser recuperado;
+	·Se o usuário informar um nome inválido, o programa irá retornar uma tela de erro, com o Capitão Jean-Luc Picard, da franquia Star Trek®, fazendo um movimento conhecido como “facepalm”;
+3.1.3. Highscores:
+	·Um arquivo de áudio MIDI é executado, tocando a música da Cantina, da franquia Star Wars;
+	·O ranking é apresentado ao jogador;
+
+4.	DESAFIOS A SEREM SUPERADOS:
+
+	·Por optarmos por uma lista encadeada para realizarmos o gerenciamento dos tiros da nave do jogador, os salvamentos da posição dos tiros da nave não puderam ser realizados, uma vez que não foi encontrada uma opção viável para tanto;
+	·Devido à uma interface gráfica com várias Bitmaps sendo geradas 60 vezes por segundo, o jogo apresenta muitas dificuldades em ser rodado em máquinas com placas de vídeo de baixo potencial. Entretanto, optou-se por manter o jogo assim, a fim de preservar sua estética.
